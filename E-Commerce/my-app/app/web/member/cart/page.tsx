@@ -120,7 +120,6 @@ export default function Cart() {
     }, [finalAmount]) // Dependency: finalAmount
 
 
-    // แก้ไขปัญหา 1: เพิ่ม fetchData ใน Dependency Array
     useEffect(() => {
         fetchDataMember()
 
@@ -129,17 +128,13 @@ export default function Cart() {
         }
     }, [memberId, fetchData]);
 
-    // แก้ไขปัญหา 2: เพิ่ม computeTotalAmount ใน Dependency Array
     useEffect(() => {
         computeTotalAmount();
     }, [carts, computeTotalAmount])
 
-    // แก้ไขปัญหา 3, 4: เพิ่ม computeFinalAmount และ fetchQrImage ใน Dependency Array
     useEffect(() => {
-        // ต้องเรียก computeFinalAmount ก่อนเสมอ เพราะ fetchQrImage ใช้ finalAmount
         computeFinalAmount();
         
-        // เรียก fetchQrImage เมื่อ finalAmount เปลี่ยน และ finalAmount มากกว่า 0
         if (finalAmount > 0) {
             fetchQrImage();
         } else {
@@ -258,7 +253,7 @@ export default function Cart() {
         }
     }
 
-    // *** ส่วนที่ถูกแก้ไข: ฟังก์ชั่นจัดการการใช้แต้ม (handlepoints) 
+    // *** ฟังก์ชั่นจัดการการใช้แต้ม (handlepoints) 
     const handlepoints = (newPoints: number) => {
         // 1. คำนวณขีดจำกัดสูงสุด 50% ของยอดรวม (ปัดลง)
         const max50Percent = Math.floor(totalAmount * 0.50);
@@ -295,7 +290,7 @@ export default function Cart() {
         setPoints(actualNewPoints);
     }
 
-    // *** ส่วนที่ถูกแก้ไข: ฟังก์ชั่นใช้แต้มทั้งหมด (useAllPoints) 
+    // *** ฟังก์ชั่นใช้แต้มทั้งหมด (useAllPoints) 
     const useAllPoints = () => {
         // คำนวณแต้มสูงสุดที่ใช้ได้จริงตามเงื่อนไขทั้งหมด
         const max50Percent = Math.floor(totalAmount * 0.50);
@@ -371,11 +366,9 @@ export default function Cart() {
 
     const handleUploadFile = async () => {
         const form = new FormData();
-        // ตรวจสอบ myFile ก่อนเรียกใช้
         if (myFile) {
             form.append('myFile', myFile);
         } else {
-            // ถ้าถึงจุดนี้ แสดงว่า finalAmount > 0 แต่ไม่มีไฟล์ ควรจัดการข้อผิดพลาด
             throw new Error("ไม่พบไฟล์หลักฐานการโอนเงิน");
         }
 
@@ -384,7 +377,7 @@ export default function Cart() {
         await axios.post(url, form);
     }
 
-    // *** ส่วนที่ได้รับการแก้ไข: handleSaveOrder ***
+    // *** handleSaveOrder ***
     const handleSaveOrder = async () => {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem(Config.tokenMember)
@@ -393,7 +386,7 @@ export default function Cart() {
             slipName: myFile ? myFile.name : null,
             points: points, 
             finalAmount: finalAmount,
-            // *** ส่วนที่เพิ่ม: ส่งยอดรวมและค่าจัดส่งไปด้วย ***
+            // *** ส่งยอดรวมและค่าจัดส่ง ***
             totalAmountBeforeDiscount: totalAmount, // ยอดรวมสินค้า + ค่าจัดส่ง (ก่อนหักแต้ม)
             shippingFee: SHIPPING_FEE               // ค่าจัดส่ง
         }
@@ -404,7 +397,7 @@ export default function Cart() {
             // Order confirmed successfully
         }
     }
-    // *** สิ้นสุดส่วนที่ได้รับการแก้ไข: handleSaveOrder ***
+    // *** handleSaveOrder ***
 
     // คำนวณเพดานส่วนลด 50% ของยอดรวม (ปัดลงให้เป็นเลขเต็ม)
     const max50PercentLimit = Math.floor(totalAmount * 0.50);
@@ -581,7 +574,7 @@ export default function Cart() {
                                         </span>
                                     </div>
                                     
-                                    {/* *** แก้ไข/เพิ่ม: ค่าขนส่ง *** */}
+                                    {/* *** ค่าขนส่ง *** */}
                                     <div className="flex justify-between items-center text-gray-700">
                                         <span className="text-lg font-medium">ค่าจัดส่ง</span>
                                         <span className="text-xl font-semibold">

@@ -110,7 +110,6 @@ export const CartController = {
                     id: params.id
                 },
                 include: {
-                    // ต้องมั่นใจว่าใน schema.prisma มีความสัมพันธ์กับ Book
                     book: {
                         select: {
                             qty: true // ดึงมาแค่ฟิลด์ qty ของหนังสือ ซึ่งใช้เป็นจำนวนสต็อก

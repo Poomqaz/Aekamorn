@@ -91,12 +91,10 @@ export default function Dashboard() {
         setAnalysisResult(null); 
 
         try {
-            // สมมติว่ามี API Endpoint ที่ Backend จัดการการเรียก Gemini API
             const url = Config.apiUrl + '/api/dashboard/analyze'; 
             const token = localStorage.getItem(Config.tokenName);
 
             if (!token) {
-                // หากไม่มี token อาจจะไม่ต้อง Throw Error แต่ตั้งค่าให้แสดงข้อความเตือนแทนก็ได้
                 setAnalysisResult('ไม่สามารถวิเคราะห์ได้: ไม่พบ token การยืนยันตัวตน');
                 return;
             }
@@ -115,10 +113,8 @@ export default function Dashboard() {
 
             if (response.ok) {
                 const data = await response.json();
-                // สมมติว่า Backend ส่งข้อความวิเคราะห์กลับมาในฟิลด์ 'analysis'
                 setAnalysisResult(data.analysis || 'ไม่สามารถสร้างการวิเคราะห์ได้');
             } else {
-                // หากสถานะไม่ OK แต่ Backend อาจมีรายละเอียดข้อผิดพลาด
                 const errorData = await response.json().catch(() => ({}));
                 const errorMessage = errorData.message || `เกิดข้อผิดพลาดในการวิเคราะห์ (${response.status})`;
                 throw new Error(errorMessage);
@@ -162,7 +158,6 @@ export default function Dashboard() {
             });
 
             if (response.ok) {
-                // TypeScript จะรู้ว่า data นี้ควรมีโครงสร้างตาม DashboardData
                 const data: DashboardData = await response.json(); 
                 
                 setTotalOrder(data.totalOrder || 0);

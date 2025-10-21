@@ -96,7 +96,7 @@ export default function EditProfile() {
         setProfileImage('');
     };
 
-    // ฟังก์ชัน handleSave ที่แก้ไข
+    // ฟังก์ชัน handleSave
     const handleSave = async () => {
         try {
             if (password && password !== confirmPassword) {

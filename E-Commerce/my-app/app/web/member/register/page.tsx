@@ -19,20 +19,17 @@ export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // เพิ่ม state สำหรับข้อผิดพลาด
     const [errors, setErrors] = useState({
         username: '',
         email: '',
         phone: ''
     });
 
-    // Function to validate email format
     const isValidEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
-    
-    // Function to check for duplicate data on the server
+
     const checkDuplicate = async (field: 'username' | 'email' | 'phone', value: string) => {
         if (!value) {
             setErrors(prev => ({ ...prev, [field]: '' }));
@@ -65,7 +62,6 @@ export default function Register() {
         e.preventDefault();
         setLoading(true);
 
-        // ตรวจสอบข้อมูลก่อนส่ง (Final validation)
         if (password !== confirmPassword) {
             Swal.fire({
                 title: 'ตรวจสอบรหัสผ่าน',
@@ -86,7 +82,6 @@ export default function Register() {
             return;
         }
 
-        // Check if there are any existing real-time errors
         if (Object.values(errors).some(error => error !== '')) {
             Swal.fire({
                 title: 'ตรวจสอบข้อมูล',
@@ -120,38 +115,30 @@ export default function Register() {
                 });
             }
         } catch (err: unknown) {
-            // 1. แก้ไข: ใช้ 'const' และกำหนดค่า default ที่มี 'status'
-            const defaultErrorData: ErrorInterface = {
+             const defaultErrorData: ErrorInterface = {
                 message: 'เกิดข้อผิดพลาดไม่ทราบสาเหตุ',
                 status: 500 // กำหนดค่า default 500 สำหรับข้อผิดพลาดที่ไม่ทราบสาเหตุ
             };
             
             let errorData: ErrorInterface = defaultErrorData; // ใช้ let สำหรับตัวแปรที่อาจถูกอัพเดต
 
-            // 2. ตรวจสอบและอัพเดตข้อมูลเมื่อเป็น Axios Error
             if (axios.isAxiosError(err) && err.response) {
                 
-                // ใช้ Type Assertion เพื่อให้เข้าถึง response.data ได้อย่างปลอดภัย
                 const serverData = err.response.data as Partial<ErrorInterface> & { error?: string };
 
-                // อัพเดตข้อมูลจากเซิร์ฟเวอร์
                 errorData = {
-                    // ใช้ message ที่ส่งมาจากเซิร์ฟเวอร์ ถ้าไม่มี ใช้ 'error' ถ้าไม่มี ใช้ค่า default
                     message: serverData.message || serverData.error || defaultErrorData.message,
-                    
-                    // ใช้ HTTP Status Code จาก response หรือใช้ default 500
+
                     status: err.response.status || defaultErrorData.status
                 };
                 
             } else if (err instanceof Error) {
-                // กรณีเป็น JavaScript Error มาตรฐาน
                 errorData = {
                     message: err.message,
                     status: defaultErrorData.status // ใช้ status default
                 };
             }
             
-            // 3. แสดงผลด้วย SweetAlert
             Swal.fire({
                 title: `ข้อผิดพลาด (${errorData.status})`,
                 icon: 'error',

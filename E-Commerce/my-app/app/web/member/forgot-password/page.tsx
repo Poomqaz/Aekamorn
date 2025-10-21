@@ -21,7 +21,6 @@ export default function ForgotPassword() {
             const url = Config.apiUrl + '/api/member/forgot-password'
             const response = await axios.post(url, payload);
 
-            // Back-end ของเราส่ง { success: true, message: '...' }
             if (response.status === 200 && response.data.success) {
                 Swal.fire({
                     title: 'สำเร็จ!',
