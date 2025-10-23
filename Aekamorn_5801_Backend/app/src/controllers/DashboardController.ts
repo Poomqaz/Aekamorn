@@ -8,8 +8,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY as string;
 const ai = GEMINI_API_KEY ? new GoogleGenAI({ 
     apiKey: GEMINI_API_KEY 
 }) : null; 
-
-const model = "gemini-2.5-flash";
+// อาจเกิดGemini API 503 Overloaded ได้ถ้าการใช้งานมากเกินไป
+const model = "gemini-2.5-pro";
 
 // Helper: ชื่อเดือนภาษาไทยสำหรับกราฟ
 const thaiMonths = [
