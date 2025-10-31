@@ -186,7 +186,7 @@ export default function Home() {
     }, [memberId, fetchDataCart])
     
     
-    // *** 💡 2. ฟังก์ชันเรียก API หนังสือแนะนำ ***
+    // *** 💡 2. ฟังก์ชันเรียก API แนะนำสินค้า ***
     const fetchRecommendations = useCallback(async (bookId: string) => {
         setRecommendations([]); // ล้างรายการเก่าก่อน
 
