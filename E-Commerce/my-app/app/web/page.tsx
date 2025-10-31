@@ -390,7 +390,7 @@ export default function Home() {
         }
 
         const { value: formValues } = await Swal.fire<[number, string]>({
-            title: `<span class="text-xl font-bold text-gray-800">รีวิวหนังสือ: ${book.name}</span>`,
+            title: `<span class="text-xl font-bold text-gray-800">รีวิวสินค้า: ${book.name}</span>`,
             html: `
                 <style>
                     /* CSS สำหรับ Star Rating ที่สวยงามและมีขนาดใหญ่ขึ้น */
@@ -530,7 +530,6 @@ export default function Home() {
             ></i>
         `).join('');
         
-        // *** 💡 4. HTML สำหรับส่วนรายการแนะนำหนังสือ (ลบ recStockInfo ที่ไม่ได้ใช้ออกไปแล้ว) ***
         const recommendationHtml = recommendedBooks.length > 0 ? `
             <div class="mt-6 pt-6 border-t border-gray-200">
                 <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
