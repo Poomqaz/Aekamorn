@@ -18,11 +18,7 @@ export default function Home() {
     const [carts, setCarts] = useState<CartInterface[]>([]);
     const [memberId, setMemberId] = useState('');
     const [qtyInCart, setQtyInCart] = useState(0);
-
-    // *** 💡 1. State สำหรับเก็บรายการแนะนำหนังสือ ***
     const [recommendations, setRecommendations] = useState<BookInterface[]>([]);
-
-    // *** State สำหรับดูรายละเอียดสินค้า ***
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
     const [currentDetailBook, setCurrentDetailBook] = useState<BookInterface | null>(null);
 
