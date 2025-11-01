@@ -175,7 +175,7 @@ export const OrderController = {
     send: async ({ set, body }: {
         set: { status: number },
         body: {
-            traceCode: string,
+            trackCode: string,
             express: string,
             remark: string,
             orderId: string
@@ -217,7 +217,7 @@ export const OrderController = {
                 await tx.order.update({
                     where: { id: body.orderId },
                     data: {
-                        trackCode: body.traceCode,
+                        trackCode: body.trackCode,
                         express: body.express,
                         remark: body.remark,
                         status: 'send',

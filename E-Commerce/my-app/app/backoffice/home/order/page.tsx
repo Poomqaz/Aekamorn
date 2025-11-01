@@ -107,7 +107,6 @@ export default function Order() {
     const openModal = (order: OrderInterface) => {
         setShowModal(true);
         setOrder(order);
-        // แก้ไข: เปลี่ยน traceCode เป็น trackCode 
         setTrackCode(order.trackCode || ''); 
         setExpress(order.express || '');
         setRemark(order.remark || '');
@@ -429,13 +428,11 @@ export default function Order() {
             if (button.isConfirmed) {
                 const url = Config.apiUrl + '/api/order/send/';
                 const payload = {
-                    // แก้ไข: ใช้ trackCode แทน traceCode
                     trackCode: trackCode, 
                     express: express,
                     remark: remark,
                     orderId: order?.id,
                     earnedPoints: earnedPoints, 
-                    // ส่งยอดรวมสุดท้าย (รวมค่าขนส่ง) กลับไป backend ด้วย
                     orderAmount: finalTotal 
                 }
                 const token = localStorage.getItem(Config.tokenName);
