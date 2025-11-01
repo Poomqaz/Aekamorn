@@ -7,3 +7,6 @@
 Frontend ใช้ Next.js (React Framework) 
 Backend ใช้ Bun และ Elysia.js 
 Database ใช้ MongoDB
+
+วิดีโอแนะนํา Project
+https://drive.google.com/drive/folders/1aO43MNiKaDVmjGlmz5QZWBIvWrKofMz9?usp=drive_link
