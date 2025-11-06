@@ -9,4 +9,4 @@ Backend ใช้ Bun และ Elysia.js
 Database ใช้ MongoDB
 
 วิดีโอแนะนํา Project
-https://drive.google.com/drive/folders/1aO43MNiKaDVmjGlmz5QZWBIvWrKofMz9?usp=drive_link
+https://drive.google.com/file/d/1zWvADU45JfBbuK88Tkm67S37BHF-7gzI/view?usp=drivesdk
